@@ -70,12 +70,17 @@
   body.night .chip{background:#111;border-color:#444;color:#bbf}
   body.night .btn{background:#111;color:#bbf;border-color:#444}
 
-  /* Astral background animation */
-  body.night::before{
-    content:"";position:fixed;top:0;left:0;width:100%;height:100%;z-index:-1;
-    background:radial-gradient(ellipse at center,#050528 0%,#0b0c22 100%);
-    animation: stars 60s linear infinite;
-  }
+  body.night.stars-active::before {
+  content:"";
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-1;
+  background:radial-gradient(ellipse at center,#050528 0%,#0b0c22 100%);
+  animation: stars 60s linear infinite;
+
   @keyframes stars{
     0%{background-position:0 0}
     100%{background-position:10000px 10000px}
@@ -389,20 +394,85 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
     </div>
   </section>
 
-  <!-- Companion Page -->
-  <section id="companionPage" class="sheet" style="display:none;grid-template-columns:1fr">
-    <div class="panel">
-      <div class="hd">Companion — Mr. Blobby</div>
-      <div class="bd">
-        <p><strong>Type:</strong> Blobfish (Astral Slime)</p>
-        <p><strong>AC:</strong> 13</p>
-        <p><strong>HP:</strong> 19</p>
-        <p><strong>Speed:</strong> 40 ft., climb 40 ft.</p>
-        <p><strong>Skills:</strong> Stealth +6, Perception +4</p>
-        <p><strong>Traits:</strong> Keen Smell; Pounce (DC 12); Sticky Engulf</p>
-        <p><strong>Attack:</strong> Slam +4 to hit, reach 5 ft., 1d6+2 bludgeoning</p>
-        <p>Mr. Blobby is Aoi’s first real friend and glows faintly in astral light.</p>
+    <!-- Companion Page -->
+  <section id="companionPage" class="sheet" style="display:none; grid-template-columns:1fr; gap:10px; font-family: 'Arial', sans-serif;">
+    <div class="panel" style="border:2px solid #444; border-radius:8px; padding:15px; background:#f9f9f9;">
+      <div class="hd" style="font-size:1.5em; font-weight:bold; text-align:center; margin-bottom:10px; color:#333;">Companion — Mr. Blobby</div>
+    
+      <!-- Top Stats Boxes -->
+      <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:8px; margin-bottom:15px;">
+        <div style="background:#e0f7fa; padding:8px; border-radius:4px; text-align:center;"><strong>AC</strong><br>12</div>
+        <div style="background:#ffe0b2; padding:8px; border-radius:4px; text-align:center;"><strong>HP</strong><br>27 (6d4+6)</div>
+        <div style="background:#c8e6c9; padding:8px; border-radius:4px; text-align:center;"><strong>Speed</strong><br>10 ft., swim 20 ft.</div>
+        <div style="background:#f8bbd0; padding:8px; border-radius:4px; text-align:center;"><strong>Type</strong><br>Tiny beast (Blobfish)</div>
       </div>
+
+      <!-- Ability Scores Table -->
+      <table style="width:100%; border:1px solid #444; border-collapse:collapse; margin-bottom:15px;">
+        <tr style="background:#d1c4e9; text-align:center;">
+          <th>Ability</th><th>Score</th><th>Modifier</th>
+        </tr>
+        <tr style="text-align:center;"><td>Strength</td><td>6</td><td>-2</td></tr>
+        <tr style="text-align:center;"><td>Dexterity</td><td>12</td><td>+1</td></tr>
+        <tr style="text-align:center;"><td>Constitution</td><td>14</td><td>+2</td></tr>
+        <tr style="text-align:center;"><td>Intelligence</td><td>3</td><td>-4</td></tr>
+        <tr style="text-align:center;"><td>Wisdom</td><td>10</td><td>+0</td></tr>
+        <tr style="text-align:center;"><td>Charisma</td><td>8</td><td>-1</td></tr>
+      </table>
+
+      <!-- Skills and Traits Boxes -->
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:15px;">
+        <div style="background:#fff3e0; padding:8px; border-radius:4px;">
+          <strong>Saving Throws:</strong> Dex +3, Con +4<br>
+          <strong>Skills:</strong> Perception +2, Stealth +3<br>
+          <strong>Damage Resistances:</strong> Acid<br>
+          <strong>Senses:</strong> Darkvision 30 ft., passive Perception 12<br>
+          <strong>Languages:</strong> Understands Aquan, cannot speak<br>
+          <strong>Challenge:</strong> 1 (200 XP)
+        </div>
+        <div style="background:#f3e5f5; padding:8px; border-radius:4px;">
+          <strong>Traits:</strong>
+          <ul style="margin:4px 0 0 15px;">
+            <li>Amorphous: Move through 1-inch spaces.</li>
+            <li>Aquatic: Breathes underwater.</li>
+            <li>Gelatinous Body: Advantage vs. poison; immune to disease.</li>
+            <li>Adhesive Slime: Slows Tiny creatures it moves through by 5 ft.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Actions and Reactions -->
+      <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:8px; margin-bottom:15px;">
+        <div style="background:#ffebee; padding:8px; border-radius:4px;">
+          <strong>Actions:</strong>
+          <ul style="margin:4px 0 0 15px;">
+            <li>Blob Slam: +3 to hit, reach 5 ft., 1 target, 6 (1d6+1) bludgeoning</li>
+            <li>Engulf (Recharge 5–6): DC 12 Dex save, restrained, 7 (2d6) acid/start turn</li>
+          </ul>
+        </div>
+        <div style="background:#e1f5fe; padding:8px; border-radius:4px;">
+          <strong>Reactions:</strong>
+          <ul style="margin:4px 0 0 15px;">
+            <li>Bounce Back: When hit by melee attack, d6 roll 5–6, attacker pushed 5 ft.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Companion Features -->
+      <div style="background:#fff9c4; padding:8px; border-radius:4px; margin-bottom:15px;">
+        <strong>Companion Features:</strong>
+        <ul style="margin:4px 0 0 15px;">
+          <li>Hit Point Pool: Add to companion total.</li>
+          <li>Proficiency Bonus: +2</li>
+          <li>Training: Basic commands (attack, defend, move, hide)</li>
+          <li>Bonded Awareness: See through companion's senses up to 100 ft.</li>
+        </ul>
+      </div>
+
+      <!-- Flavor Text -->
+      <p style="text-align:center; font-style:italic; color:#555;">
+        Mr. Blobby is a gelatinous pinkish-gray blobfish with sagging cheeks and a permanently surprised expression. Its soft, jiggly body wobbles when it moves, making it both comical and oddly endearing.
+      </p>
     </div>
   </section>
 </div>
@@ -410,18 +480,100 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
 <footer>Aoi Staryx © You • Built for GitHub Pages</footer>
 
 <script>
-  // Night mode toggle
-  document.getElementById('nightToggle').addEventListener('click',()=>document.body.classList.toggle('night'));
+  const nightBtn = document.getElementById('nightToggle');
 
-  // Page navigation
-  document.getElementById('sheetBtn').addEventListener('click',()=>{
-    document.getElementById('charSheet').style.display='grid';
-    document.getElementById('companionPage').style.display='none';
+  nightBtn.addEventListener('click', () => {
+    document.body.classList.toggle('night');
+
+    // Optional: if you want the stars animation only in night mode
+    if(document.body.classList.contains('night')){
+      document.body.classList.add('stars-active');
+    } else {
+      document.body.classList.remove('stars-active');
+    }
   });
-  document.getElementById('compBtn').addEventListener('click',()=>{
-    document.getElementById('charSheet').style.display='none';
-    document.getElementById('companionPage').style.display='grid';
-  });
+</script>
+
+<script>
+const nightBtn = document.getElementById('nightToggle');
+
+let starCanvas, starCtx, stars = [];
+
+nightBtn.addEventListener('click', () => {
+  document.body.classList.toggle('night');
+
+  if(document.body.classList.contains('night')) {
+    // Create canvas if it doesn't exist
+    if(!starCanvas){
+      starCanvas = document.createElement('canvas');
+      starCanvas.id = 'starCanvas';
+      starCanvas.style.position = 'fixed';
+      starCanvas.style.top = '0';
+      starCanvas.style.left = '0';
+      starCanvas.style.width = '100%';
+      starCanvas.style.height = '100%';
+      starCanvas.style.zIndex = '-1';
+      starCanvas.style.pointerEvents = 'none';
+      document.body.appendChild(starCanvas);
+      starCtx = starCanvas.getContext('2d');
+      initStars();
+      requestAnimationFrame(animateStars);
+    }
+  } else {
+    if(starCanvas){
+      starCanvas.remove();
+      starCanvas = null;
+      stars = [];
+    }
+  }
+});
+
+function initStars(){
+  starCanvas.width = window.innerWidth;
+  starCanvas.height = window.innerHeight;
+  stars = [];
+  const numStars = 200;
+  for(let i=0;i<numStars;i++){
+    stars.push({
+      x: Math.random() * starCanvas.width,
+      y: Math.random() * starCanvas.height,
+      r: Math.random() * 1.5 + 0.5,
+      dx: (Math.random() - 0.5) * 0.3,
+      dy: (Math.random() - 0.5) * 0.3,
+      alpha: Math.random()
+    });
+  }
+}
+
+function animateStars(){
+  if(!starCtx) return;
+  starCtx.clearRect(0,0,starCanvas.width,starCanvas.height);
+  for(let star of stars){
+    star.alpha += (Math.random()-0.5)*0.02;
+    if(star.alpha>1) star.alpha=1;
+    if(star.alpha<0) star.alpha=0;
+    star.x += star.dx;
+    star.y += star.dy;
+    if(star.x<0) star.x=starCanvas.width;
+    if(star.x>starCanvas.width) star.x=0;
+    if(star.y<0) star.y=starCanvas.height;
+    if(star.y>starCanvas.height) star.y=0;
+    starCtx.fillStyle = `rgba(255,255,255,${star.alpha})`;
+    starCtx.beginPath();
+    starCtx.arc(star.x, star.y, star.r, 0, Math.PI*2);
+    starCtx.fill();
+  }
+  requestAnimationFrame(animateStars);
+}
+
+// Adjust canvas size on resize
+window.addEventListener('resize', () => {
+  if(starCanvas){
+    starCanvas.width = window.innerWidth;
+    starCanvas.height = window.innerHeight;
+    initStars();
+  }
+});
 </script>
 
 <script>
