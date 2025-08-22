@@ -370,20 +370,37 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
         </div>
       </div>
 
-      <div class="panel">
+      <div class="panel"><div class="panel">
         <div class="hd">Art Reference</div>
         <div class="bd">
-          <label for="artRefs">Reference Links / Images:</label>
-          <textarea id="artRefs" placeholder="Paste image URLs, links, or notes here" style="min-height:120px;"></textarea>
-          <div style="margin-top:10px; display:flex; flex-wrap:wrap; gap:10px;">
-            <!-- Example placeholders for images -->
-            <img src="" alt="Reference 1" style="max-width:100px; max-height:100px; border:1px solid var(--rule); border-radius:6px;">
-            <img src="" alt="Reference 2" style="max-width:100px; max-height:100px; border:1px solid var(--rule); border-radius:6px;">
-          </div>
+          <label for="artLinks">Paste Image URLs (one per line):</label>
+          <textarea id="artLinks" placeholder="https://storage.googleapis.com/paperdemon-prod-la/submissions/full/art_83562_full_71e37282ee14a7e37f37133c34f82195660b20df98801.png
+      https://storage.googleapis.com/paperdemon-prod-la/game/characters/full/character_19408_full_0248ac27d7e2ae3592db9440d3ce1cee661d7213936ae.png" style="width:100%; min-height:120px;"></textarea>
+          <div id="artGallery" style="margin-top:10px; display:flex; flex-wrap:wrap; gap:10px;"></div>
         </div>
       </div>
-    </div>
-  </section>
+
+      <script>
+      const artLinksTextarea = document.getElementById('artLinks');
+      const artGallery = document.getElementById('artGallery');
+
+      artLinksTextarea.addEventListener('input', () => {
+        const links = artLinksTextarea.value.split('\n');
+        artGallery.innerHTML = '';
+        links.forEach(link => {
+          if (link.trim() !== '') {
+            const img = document.createElement('img');
+            img.src = link.trim();
+            img.style.maxWidth = '100px';
+            img.style.maxHeight = '100px';
+            img.style.border = '1px solid var(--rule)';
+            img.style.borderRadius = '6px';
+            artGallery.appendChild(img);
+          }
+        });
+      });
+      </script>
+
 
     <!-- Companion Page -->
   <section id="companionPage" class="sheet" style="display:none; grid-template-columns:1fr; gap:10px; font-family: 'Arial', sans-serif;">
