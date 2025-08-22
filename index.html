@@ -478,6 +478,28 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
 </div>
 
 <footer>Aoi Staryx © You • Built for GitHub Pages</footer>
+  
+<script>
+const compBtn = document.getElementById('compBtn');
+const charSheet = document.getElementById('charSheet');
+const companionPage = document.getElementById('companionPage');
+
+compBtn.addEventListener('click', () => {
+  const showingCompanion = companionPage.style.display !== 'none';
+  
+  if (showingCompanion) {
+    // Show main character sheet
+    companionPage.style.display = 'none';
+    charSheet.style.display = 'grid';
+    compBtn.textContent = 'Companion';
+  } else {
+    // Show companion page
+    companionPage.style.display = 'grid';
+    charSheet.style.display = 'none';
+    compBtn.textContent = 'Character Sheet';
+  }
+});
+</script>
 
 <script>
   const nightBtn = document.getElementById('nightToggle');
