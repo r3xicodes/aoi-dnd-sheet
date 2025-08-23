@@ -553,9 +553,146 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
     });
     });
     </script>
-  </section>
-  
+    <section id="equipment">
+        <h2>Equipping Page</h2>
+        <div class="equipment-grid">
 
+            <!-- Character Info Column -->
+            <div class="panel">
+                <div class="hd">Character Info</div>
+                <div class="bd">
+                    <p><strong>Name:</strong> <span id="charName">Aoi</span></p>
+                    <p><strong>Age:</strong> <span id="charAge">16</span></p>
+                    <p><strong>Gender:</strong> <span id="charGender">Female</span></p>
+                    <p><strong>Height:</strong> <span id="charHeight">--</span></p>
+                    <p><strong>Appearance:</strong> <span id="charAppearance">--</span></p>
+                </div>
+            </div>
+
+            <!-- Weapon / Armor Slots -->
+            <div class="panel">
+                <div class="hd">Weapons & Armor</div>
+                <div class="bd">
+                    <div class="slot-grid">
+                        <div class="slot">
+                            <img src="" alt="Weapon Slot" class="slot-img">
+                            <p>Weapon</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Armor Slot" class="slot-img">
+                            <p>Armor</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Shield Slot" class="slot-img">
+                            <p>Shield</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Items / Inventory -->
+            <div class="panel">
+                <div class="hd">Inventory / Items</div>
+                <div class="bd">
+                    <div class="slot-grid">
+                        <div class="slot">
+                            <img src="" alt="Item 1" class="slot-img">
+                            <p>Item 1</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Item 2" class="slot-img">
+                            <p>Item 2</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Item 3" class="slot-img">
+                            <p>Item 3</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Item 4" class="slot-img">
+                            <p>Item 4</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Talismans / Accessories -->
+            <div class="panel">
+                <div class="hd">Talismans / Accessories</div>
+                <div class="bd">
+                    <div class="slot-grid">
+                        <div class="slot">
+                            <img src="" alt="Talisman 1" class="slot-img">
+                            <p>Talisman 1</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Talisman 2" class="slot-img">
+                            <p>Talisman 2</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Accessory 1" class="slot-img">
+                            <p>Accessory 1</p>
+                        </div>
+                        <div class="slot">
+                            <img src="" alt="Accessory 2" class="slot-img">
+                            <p>Accessory 2</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <style>
+    #equipment {
+        padding: 20px;
+        font-family: sans-serif;
+    }
+
+    .equipment-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 20px;
+    }
+
+    .panel {
+        border: 1px solid var(--rule, #ccc);
+        border-radius: 8px;
+        background: #f9f9f9;
+        overflow: hidden;
+    }
+
+    .panel .hd {
+        background: #e0e0e0;
+        padding: 8px 12px;
+        font-weight: bold;
+        border-bottom: 1px solid var(--rule, #ccc);
+    }
+
+    .panel .bd {
+        padding: 12px;
+    }
+
+    .slot-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 10px;
+        justify-items: center;
+    }
+
+    .slot {
+      text-align: center;
+    }
+
+    .slot-img {
+        width: 60px;
+        height: 60px;
+        border: 1px solid var(--rule, #999);
+        border-radius: 6px;
+        object-fit: cover;
+        background: #fff;
+    }
+    </style>
     <!-- Companion Page -->
   <section id="companionPage" class="sheet" style="display:none; grid-template-columns:1fr; gap:10px; font-family: 'Arial', sans-serif;">
     <div class="panel" style="border:2px solid #444; border-radius:8px; padding:15px; background:#f9f9f9;">
