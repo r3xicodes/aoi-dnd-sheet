@@ -364,53 +364,135 @@ Tools: Cook’s Utensils, Thieves’ Tools.</textarea>
       </div>
     
     <div class="panel">
-      <h2>Rollers</h2>
-      <button onclick="rollDie(20)">Roll d20</button>
-      <button onclick="rollSpellAttack()">Spell Attack</button>
-      <p id="rollResult"></p>
+        <h2>Dice & Attack Roller</h2>
+        
+        <!-- Generic Dice -->
+        <div>
+            <button onclick="rollDie(4)">d4</button>
+            <button onclick="rollDie(6)">d6</button>
+            <button onclick="rollDie(8)">d8</button>
+            <button onclick="rollDie(10)">d10</button>
+            <button onclick="rollDie(12)">d12</button>
+            <button onclick="rollDie(20)">d20</button>
+            <button onclick="rollDie(100)">d100</button>
+        </div>
+        <hr>
 
-      <!-- Hidden lucky toggle -->
-      <input type="checkbox" id="riggedToggle" style="display:none;">
+        <!-- Aoi's Attacks -->
+        <h3>Aoi’s Attacks</h3>
+        <button onclick="rollLongbow()">🎯 Longbow Attack</button>
+        <button onclick="rollShortbow()">🏹 Shortbow Attack</button>
+        <button onclick="rollSpellAttack()">✨ Spell Attack</button>
+        <hr>
+
+        <!-- Mr. Blobby -->
+        <h3>Mr. Blobby</h3>
+        <button onclick="rollBlobbySlam()">💥 Blob Slam</button>
+        <button onclick="rollBlobbyEngulf()">🫧 Engulf (DC 12 Dex)</button>
+
+        <p id="rollResult"></p>
+
+        <!-- Hidden Lucky Toggle -->
+        <input type="checkbox" id="riggedToggle" style="display:none;">
     </div>
 
     <script>
+    // --- Config ---
     const spellAttackBonus = 6; // Aoi’s spell attack bonus
+    const longbowBonus = 7;     // +7 to hit
+    const shortbowBonus = 7;
+    const blobbyBonus = 3;      // Blob Slam to hit
 
+    // --- Generic Dice Roller ---
     function rollDie(sides) {
-      const rigged = document.getElementById("riggedToggle").checked;
-      let roll;
+        const rigged = document.getElementById("riggedToggle").checked;
+        let roll;
 
-      if (rigged && sides === 20) {
-        roll = 15 + Math.floor(Math.random() * 6); // 15–20
-      } else {
-        roll = Math.ceil(Math.random() * sides);
-      }
+        if (rigged && sides === 20) {
+            roll = 15 + Math.floor(Math.random() * 6); // Rigged: 15-20
+        } else {
+            roll = Math.ceil(Math.random() * sides);
+        }
 
-      document.getElementById("rollResult").innerText = `🎲 d${sides}: ${roll}`;
+        document.getElementById("rollResult").innerText =
+            `🎲 Rolled d${sides}: ${roll}`;
+    }
+
+    // --- Aoi’s Attacks ---
+    function rollLongbow() {
+        const baseRoll = rollAttack(longbowBonus);
+        if (baseRoll.hit) {
+            const dmg = Math.ceil(Math.random() * 8) + 4; // 1d8+4
+            document.getElementById("rollResult").innerText =
+                `🎯 Longbow: d20(${baseRoll.roll}) +7 = ${baseRoll.total} to hit → Hit! for ${dmg} piercing.`;
+        } else {
+            document.getElementById("rollResult").innerText =
+                `🎯 Longbow: d20(${baseRoll.roll}) +7 = ${baseRoll.total} → Miss.`;
+        }
+    }
+
+    function rollShortbow() {
+        const baseRoll = rollAttack(shortbowBonus);
+        if (baseRoll.hit) {
+            const dmg = Math.ceil(Math.random() * 6) + 4; // 1d6+4
+            document.getElementById("rollResult").innerText =
+                `🏹 Shortbow: d20(${baseRoll.roll}) +7 = ${baseRoll.total} to hit → Hit! for ${dmg} piercing.`;
+        } else {
+            document.getElementById("rollResult").innerText =
+                `🏹 Shortbow: d20(${baseRoll.roll}) +7 = ${baseRoll.total} → Miss.`;
+        }
     }
 
     function rollSpellAttack() {
-      const rigged = document.getElementById("riggedToggle").checked;
-      let baseRoll;
-
-      if (rigged) {
-        baseRoll = 15 + Math.floor(Math.random() * 6); // 15–20 rigged
-      } else {
-        baseRoll = Math.ceil(Math.random() * 20);
-      }
-
-      const total = baseRoll + spellAttackBonus;
-      document.getElementById("rollResult").innerText =
-        `✨ Spell Attack Roll: ${baseRoll} + ${spellAttackBonus} = ${total}`;
+        const baseRoll = rollAttack(spellAttackBonus);
+        document.getElementById("rollResult").innerText =
+            `✨ Spell Attack: d20(${baseRoll.roll}) +${spellAttackBonus} = ${baseRoll.total}`;
     }
 
-    // Secret toggle: press L for Lucky Mode
+    // --- Mr. Blobby Attacks ---
+    function rollBlobbySlam() {
+        const baseRoll = rollAttack(blobbyBonus);
+        if (baseRoll.hit) {
+            const dmg = Math.ceil(Math.random() * 6) + 1; // 1d6+1
+            document.getElementById("rollResult").innerText =
+                `💥 Mr. Blobby Slam: d20(${baseRoll.roll}) +3 = ${baseRoll.total} → Hit! for ${dmg} bludgeoning.`;
+        } else {
+            document.getElementById("rollResult").innerText =
+                `💥 Mr. Blobby Slam: d20(${baseRoll.roll}) +3 = ${baseRoll.total} → Miss.`;
+        }
+    }
+
+    function rollBlobbyEngulf() {
+        const dmg = Math.ceil(Math.random() * 6) + Math.ceil(Math.random() * 6); // 2d6 acid
+        document.getElementById("rollResult").innerText =
+            `🫧 Mr. Blobby Engulf: Target must make DC 12 Dex save or be restrained → ${dmg} acid at start of turn.`;
+    }
+
+    // --- Helper: Roll Attack with Lucky Toggle ---
+    function rollAttack(bonus) {
+        const rigged = document.getElementById("riggedToggle").checked;
+        let roll;
+
+        if (rigged) {
+            roll = 15 + Math.floor(Math.random() * 6); // Rigged: 15–20
+        } else {
+            roll = Math.ceil(Math.random() * 20);
+        }
+
+        return {
+            roll: roll,
+            total: roll + bonus,
+            hit: roll !== 1 // simple crit fail/miss rule
+        };
+    }
+
+    // --- Secret Toggle (L Key) ---
     document.addEventListener("keydown", (e) => {
-      if (e.key.toLowerCase() === "l") {
-        const toggle = document.getElementById("riggedToggle");
-        toggle.checked = !toggle.checked;
-        console.log("Lucky Mode:", toggle.checked ? "ON" : "OFF");
-      }
+        if (e.key.toLowerCase() === "l") {
+            const toggle = document.getElementById("riggedToggle");
+            toggle.checked = !toggle.checked;
+            console.log("Lucky Mode:", toggle.checked ? "ON" : "OFF");
+        }
     });
     </script>
 
